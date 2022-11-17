@@ -7,6 +7,7 @@ using namespace std;
 ofstream ficheroEscritura;
 ifstream ficheroLectura;
 
+void Pausa();
 bool VerificarFichero(string);
 void AgregarDatos();
 void EliminarEquipo();
@@ -27,30 +28,43 @@ int main(){
         {
         case 1:
             AgregarDatos();
+            Pausa();
             break;
         case 2:
             EliminarEquipo();
+            Pausa();
             break;
         case 3:
             Busqueda();
+            Pausa();
             break;
         case 4:
             MostrarEquipos();
+            Pausa();
             break;
         case 5:
             Partidos();
+            Pausa();
             break;
         case 6:
             Puntajes();
+            Pausa();
             break;
         case 7:
+            cout<< "FIN DEL PROGRAMA!"<<endl;
+            Pausa();
             break;
         default:
             cout<< "Ingrese una opcion correcta!"<<endl;
+            Pausa();
             break;
         }
     } while (menu!=7);
-    cout<< "FIN DEL PROGRAMA!"<<endl;
+}
+
+void Pausa(){
+    cout<< "\tPresiona cualquier tecla para continuar\n";
+    system("pause");
 }
 
 bool VerificarFichero(string auxEquipo){
