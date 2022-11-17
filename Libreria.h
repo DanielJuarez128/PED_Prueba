@@ -94,9 +94,8 @@ int contador(){
             conteo++;
             temporal = temporal->siguiente;
         }
-    }else{
-        return 0;
     }
+    return conteo;
 }
 
 void TablaPartidos(int n)

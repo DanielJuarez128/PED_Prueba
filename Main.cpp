@@ -63,7 +63,6 @@ int main(){
 }
 
 void Pausa(){
-    cout<< "\tPresiona cualquier tecla para continuar\n";
     system("pause");
 }
 
@@ -86,18 +85,23 @@ bool VerificarFichero(string auxEquipo){
 }
 
 void AgregarDatos(){
-    ficheroEscritura.open("ProyectoFinalPED.txt", ios::out|ios::app);
+    if(lista==NULL){
+        ficheroEscritura.open("ProyectoFinalPED.txt");
+    }else{
+        ficheroEscritura.open("ProyectoFinalPED.txt", ios::out|ios::app);
+    }
     string nombreE, paisE, aux;
     int cant, puntajeE;
-    cout<< "Cuantos equipos desea ingresar?";
+    cout<< "Cuantos equipos desea ingresar?\t";
     cin >>cant;
+    getline(cin, aux);
     for(int i=0; i<cant; i++){
-        cout<<"Ingresar el nombre del equipo: ";
+        cout<<"Ingresar el nombre del equipo:\t";
         getline(cin, nombreE);
         if(VerificarFichero(nombreE)){
-            cout<<"Ingresar el pais del equipo: ";
+            cout<<"Ingresar el pais del equipo:\t";
             getline(cin, paisE);
-            cout<<"Ingrese el puntaje actual del equipo: ";
+            cout<<"Ingrese el puntaje actual del equipo:\t";
             cin>>puntajeE;
             getline(cin, aux);
             InsertarEquipo(nombreE, paisE, puntajeE);
@@ -112,10 +116,10 @@ void AgregarDatos(){
 void EliminarEquipo(){
     int puntaje;
     string equipo, pais, auxEquipo;
-    ficheroLectura.open("Informacion.txt", ios::in);
+    ficheroLectura.open("ProyectoFinalPED.txt", ios::in);
     ofstream temp("auxiliar.txt", ios::out);
     if (ficheroLectura.is_open()){
-        cout << "Ingrese el nombre del equipo al eliminar";
+        cout << "Ingrese el nombre del equipo al eliminar:\t";
         cin >> auxEquipo;
         ficheroLectura >> equipo;
         while (!ficheroLectura.eof()){
@@ -123,7 +127,7 @@ void EliminarEquipo(){
             ficheroLectura >> puntaje;
             if (!VerificarFichero(auxEquipo)){
                 EliminarElemento(auxEquipo);
-                cout << "Registro eliminado";
+                cout << "Registro eliminado"<<endl;
             }else{
                 temp<<equipo<<" "<<pais<<" "<<puntaje<<"\n";
             }
@@ -134,8 +138,8 @@ void EliminarEquipo(){
     }else{
         cout << "Error al abrir el archivo";
     }
-    remove("Informacion.txt");
-    rename("tmp.txt", "Informacion.txt");
+    remove("ProyectoFinalPED.txt");
+    rename("auxiliar.txt", "ProyectoFinalPED.txt");
 }
 
 void Busqueda(){
@@ -147,7 +151,7 @@ void Busqueda(){
 
 void MostrarEquipos(){
     int option;
-    cout<< "Tienes un total de "<<contador()<<" equipos.\nDesea agregar otro equipo?(1=Si, 2=No)\t";
+    cout<< "Tienes un total de "<< contador() <<" equipos.\nDesea agregar otro equipo?(1=Si, 2=No)\t";
     cin>>option;
     if(option==1){
         AgregarDatos();
@@ -166,7 +170,7 @@ void Partidos(){
 
 void Puntajes(){
     int option;
-    cout<< "Tienes un total de "<<contador()<<" equipos.\nDesea agregar otro equipo?(1=Si, 2=No)\t";
+    cout<< "Tienes un total de "<< contador() <<" equipos.\nDesea agregar otro equipo?(1=Si, 2=No)\t";
     cin>>option;
     if(option==1){
         AgregarDatos();
