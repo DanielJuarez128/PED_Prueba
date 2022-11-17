@@ -99,17 +99,6 @@ int contador(){
     }
 }
 
-void MostrarPartidos(){
-    int n;
-    cout<< "Cuantos partidos desea generar?\t";
-    cin >> n;
-    if ((lista!=NULL)&&(n<=contador()/2)){
-        TablaPartidos(n);
-    }else{
-        cout<<"ERROR: Lista vacia o datos insuficiente";
-    }
-}
-
 void TablaPartidos(int n)
 {
     struct Nodo *temp = lista;
@@ -136,6 +125,17 @@ void TablaPartidos(int n)
     }
 }
 
+void MostrarPartidos(){
+    int cant;
+    cout<< "Cuantos partidos desea generar?\t";
+    cin >> cant;
+    if ((lista!=NULL)&&(cant<=contador()/2)){
+        TablaPartidos(cant);
+    }else{
+        cout<<"ERROR: Lista vacia o datos insuficiente";
+    }
+}
+
 void Ordenamiento(int puntos[], int marca){
     int aux;
     for (int i = 0; i < marca; i++){
@@ -146,23 +146,6 @@ void Ordenamiento(int puntos[], int marca){
                 puntos[j + 1] = aux;
             }
         }
-    }
-}
-
-void TablaPuntaje(){
-    int n=contador()-1, puntajes[n];
-    struct Nodo *temp = lista;
-    while (temp != NULL){
-        for (int i = 0; i < n; i++){
-            puntajes[i]=temp->puntaje;
-            temp=temp->siguiente;
-        }
-    }
-    Ordenamiento(puntajes, n);
-    cout << "Los equipos, ordenados por puntaje, son:" << endl;
-    for (int i = 0; i < n; i++)
-    {
-        cout << BuscarPuntaje(puntajes[i])->equipo <<", con "<<BuscarPuntaje(puntajes[i])<<"puntos en total\n";
     }
 }
 
@@ -180,4 +163,22 @@ struct Nodo *BuscarPuntaje(int &pPuntaje){
         }
     }
     return equipoBuscado;
+}
+
+void TablaPuntaje(){
+    int n=contador()-1, puntajes[n];
+    struct Nodo *temp = lista;
+    while (temp != NULL){
+        for (int i = 0; i < n; i++){
+            puntajes[i]=temp->puntaje;
+            temp=temp->siguiente;
+        }
+    }
+    Ordenamiento(puntajes, n);
+    cout << "Los equipos, ordenados por puntaje, son:" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << BuscarPuntaje(puntajes[i])->equipo <<", con "
+        <<BuscarPuntaje(puntajes[i])->puntaje<<" puntos en total\n";
+    }
 }
