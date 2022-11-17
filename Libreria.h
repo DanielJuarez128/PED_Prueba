@@ -2,8 +2,7 @@
 #include <string.h>
 using namespace std;
 
-struct Nodo
-{
+struct Nodo{
     string equipo;
     string pais;
     int puntaje;
@@ -29,7 +28,7 @@ void InsertarEquipo( string pEquipo, string pPais, int pPuntaje){
         aux2->siguiente = nuevo_nodo;
     }
     nuevo_nodo->siguiente = aux1;
-    cout << "Equipo agregado en la lista \n\n";
+    cout << "Equipo agregado en la lista"<<endl;
 };
 
 void EliminarElemento(string &pEquipo){
@@ -42,11 +41,11 @@ void EliminarElemento(string &pEquipo){
                 auxEliminar = auxEliminar->siguiente;
             }
             if (auxEliminar == NULL){
-                cout << "Dato no encontrado";
+                cout << "Dato no encontrado"<<endl;
             }else{
                 temp = auxEliminar->siguiente;
                 delete auxEliminar;
-                cout << "se elimino al equipo seleccionado\n\n";
+                cout << "Se elimino al equipo seleccionado"<<endl;
             }
         }else{
             delete lista;
@@ -54,6 +53,22 @@ void EliminarElemento(string &pEquipo){
         }
     }
 };
+
+struct Nodo *BuscarNombre(string &nombreE){
+    struct Nodo *temp = lista;
+    struct Nodo *equipoBuscado;
+    if (lista != NULL){
+        while ((temp != NULL) && (temp->equipo != nombreE)){
+            temp = temp->siguiente;
+        }
+        if (temp == NULL){
+            cout << "Dato no encontrado";
+        }else{
+            equipoBuscado=temp;
+        }
+    }
+    return equipoBuscado;
+}
 
 void BuscarEquipo(string &pEquipo){
     struct Nodo *temp = lista;
@@ -63,7 +78,7 @@ void BuscarEquipo(string &pEquipo){
             temp = temp->siguiente;
         }
         if (temp == NULL){
-            cout << "Dato no encontrado";
+            cout << "Equipo no encontrado!"<<endl;
         }else{
             cout<< "Se encontro al equipo "<<temp->equipo<<", del pais "<< temp->pais
             <<", el cual tiene un puntaje actual de "<<temp->puntaje<<" puntos en total."<<endl;
@@ -77,7 +92,7 @@ void imprimirLista(){
         while (temporal != NULL)
         {
             cout<< "El equipo "<<temporal->equipo<<", del pais "<<temporal->pais
-            <<", tiene "<<temporal->puntaje<<"puntos en total"<<endl;
+            <<", tiene "<<temporal->puntaje<<" puntos en total"<<endl;
             temporal = temporal->siguiente;
         }
     }else{

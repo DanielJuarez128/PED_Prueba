@@ -7,9 +7,9 @@ using namespace std;
 ofstream ficheroEscritura;
 ifstream ficheroLectura;
 
-void Pausa();
 bool VerificarFichero(string);
 void AgregarDatos();
+void EditarFichero();
 void EliminarEquipo();
 void Busqueda();
 void MostrarEquipos();
@@ -18,52 +18,52 @@ void Puntajes();
 
 int main(){
     int menu;
+    cout<<"Simulador de equipos deportivos!"<<endl;
     do{
-        cout<<"Simulador de equipos deportivos!\n Bienvenido al menu:"<<endl;
-        cout<< "1- Agregar equipo\n"<<"2- Eliminar un equipo en especifico\n"
-        <<"3- Buscar un equipo\n"<<"4- Mostrar todos los equipos\n"<<"5- Mostrar una tabla de partidos\n"
-        <<"6-Mostrar equipos por puntaje\n"<<"7-Salir\n"<<"Ingrese su opcion:\t";
+        cout<<"\tBienvenido al menu:"<< endl << "1- Agregar equipo\n"<<"2- Editar la informacion de un equipo\n"
+        <<"3- Eliminar un equipo en especifico\n"<<"4- Buscar un equipo\n"<<"5- Mostrar todos los equipos\n"
+        <<"6- Mostrar una tabla de partidos\n" <<"7-Mostrar equipos por puntaje\n"<<"8-Salir\n"
+        <<"Ingrese su opcion:\t";
         cin>> menu;
         switch(menu)
         {
         case 1:
             AgregarDatos();
-            Pausa();
+            system("pause");
             break;
         case 2:
-            EliminarEquipo();
-            Pausa();
+            EditarFichero();
+            system("pause");
             break;
         case 3:
-            Busqueda();
-            Pausa();
+            EliminarEquipo();
+            system("pause");
             break;
         case 4:
-            MostrarEquipos();
-            Pausa();
+            Busqueda();
+            system("pause");
             break;
         case 5:
-            Partidos();
-            Pausa();
+            MostrarEquipos();
+            system("pause");
             break;
         case 6:
-            Puntajes();
-            Pausa();
+            Partidos();
+            system("pause");
             break;
         case 7:
+            Puntajes();
+            system("pause");
+            break;
+        case 8:
             cout<< "FIN DEL PROGRAMA!"<<endl;
-            Pausa();
+            system("pause");
             break;
         default:
             cout<< "Ingrese una opcion correcta!"<<endl;
-            Pausa();
             break;
         }
     } while (menu!=7);
-}
-
-void Pausa(){
-    system("pause");
 }
 
 bool VerificarFichero(string auxEquipo){
@@ -85,11 +85,7 @@ bool VerificarFichero(string auxEquipo){
 }
 
 void AgregarDatos(){
-    if(lista==NULL){
-        ficheroEscritura.open("ProyectoFinalPED.txt");
-    }else{
-        ficheroEscritura.open("ProyectoFinalPED.txt", ios::out|ios::app);
-    }
+    ficheroEscritura.open("ProyectoFinalPED.txt", ios::out|ios::app);
     string nombreE, paisE, aux;
     int cant, puntajeE;
     cout<< "Cuantos equipos desea ingresar?\t";
@@ -105,12 +101,47 @@ void AgregarDatos(){
             cin>>puntajeE;
             getline(cin, aux);
             InsertarEquipo(nombreE, paisE, puntajeE);
-            ficheroEscritura<<nombreE<<" "<<paisE<<" "<<puntajeE<<"\n";
+            ficheroEscritura<<nombreE<<"\t"<<paisE<<"\t"<<puntajeE<<"\n";
         }else{
-            cout << "Equipo ya agregado!";
+            cout << "\tEquipo ya agregado!"<<endl;
         }
     }
     ficheroEscritura.close();
+}
+
+void EditarFichero(){
+    int puntaje, temp_puntaje;
+    string equipo, pais, temp_equipo, temp_pais;
+    ficheroLectura.open("ProyectoFinalPED.txt", ios::in);
+    ofstream temp("temporal.txt", ios::out);
+    if (ficheroLectura.is_open()){
+        cout << "Ingrese el nombre del nombre del equipo a modificar:\t";
+        cin >> temp_equipo;
+        ficheroLectura >> equipo;
+        while (!ficheroLectura.eof()){
+            ficheroLectura >> pais;
+            ficheroLectura>>puntaje;
+            if (!VerificarFichero(temp_equipo)){
+                cout << "Ingresar el pais:\t";
+                cin >> temp_pais;
+                cout<< "Ingresar el nuevo puntaje:\t";
+                cin >> temp_puntaje;
+                BuscarNombre(temp_equipo)->pais=temp_pais;
+                BuscarNombre(temp_equipo)->puntaje=temp_puntaje;
+                cout << "Registro actualizado" << endl;
+                temp << temp_equipo << " " << temp_pais << " "<< temp_puntaje << "\n";
+            }else{
+                temp << equipo << " " << pais << " "<< puntaje<< "\n";
+            }
+            ficheroLectura >> equipo;
+        }
+        ficheroLectura.close();
+        temp.close();
+    }else{
+        cout << "Error al abrir el archivo";
+    }
+    remove("ProyectoFinalPED.txt");
+    rename("temporal.txt", "ProyectoFinalPED.txt");
 }
 
 void EliminarEquipo(){
@@ -127,9 +158,9 @@ void EliminarEquipo(){
             ficheroLectura >> puntaje;
             if (!VerificarFichero(auxEquipo)){
                 EliminarElemento(auxEquipo);
-                cout << "Registro eliminado"<<endl;
+                cout << "\tRegistro eliminado"<<endl;
             }else{
-                temp<<equipo<<" "<<pais<<" "<<puntaje<<"\n";
+                temp<<equipo<<"\t"<<pais<<"\t"<<puntaje<<"\n";
             }
             ficheroLectura >> equipo;
         }
