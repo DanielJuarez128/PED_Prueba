@@ -5,13 +5,13 @@ using namespace std;
 struct Nodo{
     string equipo;
     string pais;
-    int puntaje;
+    string puntaje;
     Nodo *siguiente;
 };
 
 struct Nodo *lista = NULL;
 
-void InsertarEquipo( string pEquipo, string pPais, int pPuntaje){
+void InsertarEquipo( string pEquipo, string pPais, string pPuntaje){
     Nodo *nuevo_nodo = new Nodo();
     nuevo_nodo->equipo = pEquipo;
     nuevo_nodo->pais = pPais;
@@ -150,8 +150,8 @@ void MostrarPartidos(){
     }
 }
 
-void Ordenamiento(int puntos[], int marca){
-    int aux;
+void Ordenamiento(string puntos[], int marca){
+    string aux;
     for (int i = 0; i < marca; i++){
         for (int j = 0; j < marca - 1; j++){
             if(puntos[j]>puntos[j+1]){
@@ -163,7 +163,7 @@ void Ordenamiento(int puntos[], int marca){
     }
 }
 
-struct Nodo *BuscarPuntaje(int &pPuntaje){
+struct Nodo *BuscarPuntaje(string &pPuntaje){
     struct Nodo *temp = lista;
     struct Nodo *equipoBuscado;
     if (lista != NULL){
@@ -180,7 +180,8 @@ struct Nodo *BuscarPuntaje(int &pPuntaje){
 }
 
 void TablaPuntaje(){
-    int n=contador()-1, puntajes[n];
+    int n=contador()-1;
+    string puntajes[n];
     struct Nodo *temp = lista;
     while (temp != NULL){
         for (int i = 0; i < n; i++){

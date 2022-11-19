@@ -63,13 +63,12 @@ int main(){
             cout<< "Ingrese una opcion correcta!"<<endl;
             break;
         }
-    } while (menu!=7);
+    } while (menu!=8);
 }
 
 bool VerificarFichero(string auxEquipo){
     ficheroLectura.open("ProyectoFinalPED.txt", ios::in);
-    string equipo, pais;
-    int puntaje;
+    string equipo, pais, puntaje;
     ficheroLectura >> equipo;
     while (!ficheroLectura.eof()){
         ficheroLectura >> pais;
@@ -86,8 +85,8 @@ bool VerificarFichero(string auxEquipo){
 
 void AgregarDatos(){
     ficheroEscritura.open("ProyectoFinalPED.txt", ios::out|ios::app);
-    string nombreE, paisE, aux;
-    int cant, puntajeE;
+    string nombreE, paisE, puntajeE, aux;
+    int cant;
     cout<< "Cuantos equipos desea ingresar?\t";
     cin >>cant;
     getline(cin, aux);
@@ -110,8 +109,7 @@ void AgregarDatos(){
 }
 
 void EditarFichero(){
-    int puntaje, temp_puntaje;
-    string equipo, pais, temp_equipo, temp_pais;
+    string equipo, pais, puntaje, temp_equipo, temp_pais, temp_puntaje;
     ficheroLectura.open("ProyectoFinalPED.txt", ios::in);
     ofstream temp("temporal.txt", ios::out);
     if (ficheroLectura.is_open()){
@@ -145,8 +143,7 @@ void EditarFichero(){
 }
 
 void EliminarEquipo(){
-    int puntaje;
-    string equipo, pais, auxEquipo;
+    string equipo, pais, puntaje, auxEquipo;
     ficheroLectura.open("ProyectoFinalPED.txt", ios::in);
     ofstream temp("auxiliar.txt", ios::out);
     if (ficheroLectura.is_open()){
