@@ -56,18 +56,17 @@ void EliminarElemento(string &pEquipo){
 
 struct Nodo *BuscarNombre(string &nombreE){
     struct Nodo *temp = lista;
-    struct Nodo *equipoBuscado;
     if (lista != NULL){
         while ((temp != NULL) && (temp->equipo != nombreE)){
             temp = temp->siguiente;
         }
         if (temp == NULL){
             cout << "Dato no encontrado";
+            break;
         }else{
-            equipoBuscado=temp;
+            return temp;
         }
     }
-    return equipoBuscado;
 }
 
 void BuscarEquipo(string &pEquipo){
@@ -165,18 +164,17 @@ void Ordenamiento(string puntos[], int marca){
 
 struct Nodo *BuscarPuntaje(string &pPuntaje){
     struct Nodo *temp = lista;
-    struct Nodo *equipoBuscado;
     if (lista != NULL){
         while ((temp != NULL) && (temp->puntaje != pPuntaje)){
             temp = temp->siguiente;
         }
         if (temp == NULL){
             cout << "Dato no encontrado";
+            break;
         }else{
-            equipoBuscado=temp;
+            return temp;
         }
     }
-    return equipoBuscado;
 }
 
 void TablaPuntaje(){
